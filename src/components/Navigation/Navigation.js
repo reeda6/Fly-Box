@@ -20,19 +20,16 @@ import Link from '../Link';
 //   toggleTheme: () => {},
 // });
 
-const mapStateToProps = state => {
-  return state
-}
+const mapStateToProps = state => state;
 
 class Navigation extends React.Component {
-
-  constructor(props,context){
-    super(props,context);
+  constructor(props, context) {
+    super(props, context);
   }
 
   static contextTypes = {
-    signedIn: PropTypes.bool
-  }
+    signedIn: PropTypes.bool,
+  };
 
   render() {
     return (
@@ -44,27 +41,27 @@ class Navigation extends React.Component {
         <Link className={s.mybutton} to="/contact">
           Contact
         </Link>
-        {console.log('from nav',this.props)}
+        {console.log('from nav', this.props)}
 
-        { this.props.signedIn ? 
+        {this.props.signedIn ? (
           <>
-          <span className={s.spacer}> | </span>
-          <Link className={s.mybutton} to="/trips">
-            View Trips
-          </Link>
+            <span className={s.spacer}> | </span>
+            <Link className={s.mybutton} to="/trips">
+              View Trips
+            </Link>
           </>
-          :
+        ) : (
           <>
-          <span className={s.spacer}> | </span>
-          <Link className={s.mybutton} to="/login">
-            Log in
-          </Link>
-          <span className={s.spacerForOr}>or</span>
-          <Link className={s.mybutton} to="/register">
-            Sign up
-          </Link>
+            <span className={s.spacer}> | </span>
+            <Link className={s.mybutton} to="/login">
+              Log in
+            </Link>
+            <span className={s.spacerForOr}>or</span>
+            <Link className={s.mybutton} to="/register">
+              Sign up
+            </Link>
           </>
-        }
+        )}
       </div>
     );
   }

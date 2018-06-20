@@ -18,47 +18,45 @@ class Login extends React.Component {
     title: PropTypes.string.isRequired,
   };
 
-  constructor(props,context) {
+  constructor(props, context) {
     super(props, context);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state={
-      email:'',
-      password:''
+    this.state = {
+      email: '',
+      password: '',
     };
   }
-  static contextTypes = {
-  };
+  static contextTypes = {};
 
-  handleSubmit= async event => {
+  handleSubmit = async event => {
     event.preventDefault();
     const data = new FormData(event.target);
-    var pair= data.entries();
-    var email1 = pair[0];
-    var password1 = pair[1];
-    var count=0;
+    var pair = data.entries();
+    let email1 = pair[0];
+    let password1 = pair[1];
+    let count = 0;
     for (var pair of data.entries()) {
-      count==0? email1=pair[1] : password1=pair[1];
-      count++; 
-    }  
-
-   
-    if (this.refs.myRef) {
-        this.setState({
-        email: email1,
-        password: password1        
-      })
+      count == 0 ? (email1 = pair[1]) : (password1 = pair[1]);
+      count++;
     }
 
-    console.log(this.state.email, this.state.password)
+    if (this.refs.myRef) {
+      this.setState({
+        email: email1,
+        password: password1,
+      });
+    }
+
+    console.log(this.state.email, this.state.password);
     try {
-			await Auth.signIn(this.state.email, this.state.password);
-			// this.props.userHasAuthenticated(true);
-			// this.props.history.push('/');
-		} catch (e) {
-			alert(e.message);
-			//this.setState({ isLoading: false });
-		}
-  }
+      await Auth.signIn(this.state.email, this.state.password);
+      // this.props.userHasAuthenticated(true);
+      // this.props.history.push('/');
+    } catch (e) {
+      alert(e.message);
+      // this.setState({ isLoading: false });
+    }
+  };
 
   render() {
     return (
@@ -82,8 +80,8 @@ class Login extends React.Component {
               <span>Log in with Facebook</span>
             </a>
           </div>
-          {this.context.signedIn=true}
-          {console.log('from login,',this.context)}
+          {(this.context.signedIn = true)}
+          {console.log('from login,', this.context)}
           <div className={s.formGroup}>
             <a className={s.google} href="/login/google">
               <svg
@@ -134,8 +132,8 @@ class Login extends React.Component {
             </a>
           </div>
           <strong className={s.lineThrough}>OR</strong>
-          <form  onSubmit={this.handleSubmit}>
-            <div className={s.formGroup} >
+          <form onSubmit={this.handleSubmit}>
+            <div className={s.formGroup}>
               <label className={s.label} htmlFor="usernameOrEmail">
                 Username or email address:
                 <input
@@ -159,9 +157,7 @@ class Login extends React.Component {
               </label>
             </div>
             <div className={s.formGroup}>
-              <button className={s.button}>
-                Log in
-              </button>
+              <button className={s.button}>Log in</button>
               {console.log('from later in log in ', this.context)}
             </div>
           </form>

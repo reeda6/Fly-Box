@@ -27,7 +27,7 @@ class Header extends React.Component {
               width="160"
               height="100"
               alt="React"
-              border-radius= "25px"
+              border-radius="25px"
               className={s.logo}
             />
           </Link>

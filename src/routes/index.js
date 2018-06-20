@@ -23,22 +23,22 @@ import Amplify from 'aws-amplify';
 // }
 
 Amplify.configure({
-	Auth: {
-		mandatorySignIn: true,
-		region: 'us-east-1',
-		userPoolId: 'us-east-1_kyuGMSqi1',
-		identityPoolId: 'us-east-1:ee7ea795-c051-4046-a393-0703ccbed52f',
-		userPoolWebClientId: '2c2960skbgm3du9f7kh1j8mosn'
-	},
-	API: {
-		endpoints: [
-			{
-				name: 'testApiCall',
-				endpoint: 'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev',
-				region: 'us-east-1'
-			}
-		]
-	}
+  Auth: {
+    mandatorySignIn: true,
+    region: 'us-east-1',
+    userPoolId: 'us-east-1_kyuGMSqi1',
+    identityPoolId: 'us-east-1:ee7ea795-c051-4046-a393-0703ccbed52f',
+    userPoolWebClientId: '2c2960skbgm3du9f7kh1j8mosn',
+  },
+  API: {
+    endpoints: [
+      {
+        name: 'testApiCall',
+        endpoint: 'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev',
+        region: 'us-east-1',
+      },
+    ],
+  },
 });
 
 // The top-level (parent) route

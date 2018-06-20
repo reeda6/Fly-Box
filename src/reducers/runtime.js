@@ -8,8 +8,8 @@ export default function runtime(state = false, action) {
     //     [action.payload.name]: action.payload.value,
     //   };
 
-      case LOG_IN:
-        return true;
+    case LOG_IN:
+      return true;
     default:
       return state;
   }
