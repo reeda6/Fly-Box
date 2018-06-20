@@ -24,15 +24,17 @@ class Header extends React.Component {
             <img
               src={logoUrl}
               srcSet={`${logoUrl}`}
-              width="170"
-              height="50"
+              width="160"
+              height="100"
               alt="React"
+              border-radius= "25px"
+              className={s.logo}
             />
           </Link>
           <div className={s.banner}>
             <p className={s.bannerTitle}>Fly Box</p>
             <p className={s.bannerDesc}>
-              <em>Change the way you pay!</em>
+              <em>More fish, less work</em>
             </p>
           </div>
         </div>

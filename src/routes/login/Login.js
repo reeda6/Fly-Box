@@ -10,6 +10,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { Auth } from 'aws-amplify';
 import s from './Login.css';
 
 class Login extends React.Component {
@@ -17,9 +18,51 @@ class Login extends React.Component {
     title: PropTypes.string.isRequired,
   };
 
+  constructor(props,context) {
+    super(props, context);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state={
+      email:'',
+      password:''
+    };
+  }
+  static contextTypes = {
+  };
+
+  handleSubmit= async event => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    var pair= data.entries();
+    var email1 = pair[0];
+    var password1 = pair[1];
+    var count=0;
+    for (var pair of data.entries()) {
+      count==0? email1=pair[1] : password1=pair[1];
+      count++; 
+    }  
+
+   
+    if (this.refs.myRef) {
+        this.setState({
+        email: email1,
+        password: password1        
+      })
+    }
+
+    console.log(this.state.email, this.state.password)
+    try {
+			await Auth.signIn(this.state.email, this.state.password);
+			// this.props.userHasAuthenticated(true);
+			// this.props.history.push('/');
+		} catch (e) {
+			alert(e.message);
+			//this.setState({ isLoading: false });
+		}
+  }
+
   render() {
     return (
-      <div className={s.root}>
+      <div className={s.root} ref="myRef">
         <div className={s.container}>
           <h1>{this.props.title}</h1>
           <p className={s.lead}>
@@ -39,6 +82,8 @@ class Login extends React.Component {
               <span>Log in with Facebook</span>
             </a>
           </div>
+          {this.context.signedIn=true}
+          {console.log('from login,',this.context)}
           <div className={s.formGroup}>
             <a className={s.google} href="/login/google">
               <svg
@@ -89,8 +134,8 @@ class Login extends React.Component {
             </a>
           </div>
           <strong className={s.lineThrough}>OR</strong>
-          <form method="post">
-            <div className={s.formGroup}>
+          <form  onSubmit={this.handleSubmit}>
+            <div className={s.formGroup} >
               <label className={s.label} htmlFor="usernameOrEmail">
                 Username or email address:
                 <input
@@ -114,9 +159,10 @@ class Login extends React.Component {
               </label>
             </div>
             <div className={s.formGroup}>
-              <button className={s.button} type="submit">
+              <button className={s.button}>
                 Log in
               </button>
+              {console.log('from later in log in ', this.context)}
             </div>
           </form>
         </div>

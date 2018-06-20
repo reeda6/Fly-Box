@@ -14,7 +14,7 @@
 }
 
 .root {
-  background: snow;
+  background: #d17e47;
   color: #3de580;
 }
 
@@ -22,7 +22,7 @@
   margin: 0 auto;
   padding: 20px 0;
   max-width: var(--max-content-width);
-  color: #3de580;
+  color: white;
 }
 
 .brand {
@@ -38,8 +38,10 @@
 .bannerTitle {
   margin: 0;
   padding: 0;
-  font-weight: normal;
-  font-size: 3em;
+  font-weight: oblique;
+  font-style: italic;
+  font-family: georgia, script;
+  font-size: 5em;
   line-height: 1em;
 }
 
@@ -48,3 +50,10 @@
   font-size: 1.25em;
   margin: 0;
 }
+
+.logo {
+  border:2px solid#f9dfbd;
+  box-shadow: 0 0 10px #ebe7e2;
+  border-radius: 10px;
+}
+

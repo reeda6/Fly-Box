@@ -46,7 +46,7 @@ class Contact extends React.Component {
                 <div className="card-body">
                   <h5 className="card-title">Business and Partnerships</h5>
                   <p className="card-text">
-                    Are you interested in parterning with FacePay?
+                    Are you interested in parterning with Fly Box?
                   </p>
                   <a
                     href="mailto:alexjreed7@gmail.com?Subject=Hello%20again"

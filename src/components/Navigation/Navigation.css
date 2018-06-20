@@ -46,3 +46,72 @@
 .spacer {
   color: rgba(255, 255, 255, 0.3);
 }
+.spacerForOr {
+  color: rgba(255, 255, 255, 0.3);
+  margin: 6px;
+}
+
+.mybutton {
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  background-color: #f9d0ac;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 2px solid white;
+}
+
+.mybutton:hover {
+  background-color: brown; /* Green */
+  color: white;
+}
+/* 
+.btn-outline-success-me {
+  background-color: white !important;
+}
+
+.btnsample { 
+  color: #ffffff; 
+  background-color: #A8A39F; 
+  border-color: #F5F4F7; 
+} 
+ 
+.btnsample:hover, 
+.btnsample:focus, 
+.btnsample:active, 
+.btnsample.active, 
+.open .dropdown-toggle.btnsample { 
+  color: #ffffff; 
+  background-color: #053610; 
+  border-color: #F5F4F7; 
+} 
+ 
+.btnsample:active, 
+.btnsample.active, 
+.open .dropdown-toggle.btnsample { 
+  background-image: none; 
+} 
+ 
+.btnsample.disabled, 
+.btnsample[disabled], 
+fieldset[disabled] .btnsample, 
+.btnsample.disabled:hover, 
+.btnsample[disabled]:hover, 
+fieldset[disabled] .btnsample:hover, 
+.btnsample.disabled:focus, 
+.btnsample[disabled]:focus, 
+fieldset[disabled] .btnsample:focus, 
+.btnsample.disabled:active, 
+.btnsample[disabled]:active, 
+fieldset[disabled] .btnsample:active, 
+.btnsample.disabled.active, 
+.btnsample[disabled].active, 
+fieldset[disabled] .btnsample.active { 
+  background-color: #A8A39F; 
+  border-color: #F5F4F7; 
+} 
+ 
+.btnsample .badge { 
+  color: #A8A39F; 
+  background-color: #ffffff; 
+} */
