@@ -10,10 +10,65 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Row, Col } from 'react-bootstrap';
+//import { Slide } from 'react-slideshow-image';
+//import ImageGallery from 'react-image-gallery';
+
 import s from './Home.css';
 
+
+
+
+// const images = [ 
+//   '../../../public/fish1.jpg',
+//   '../../../public/fish2.jpg',
+//   '../../../public/fish3.jpg',
+//   '../../../public/fish4.jpg',
+  
+// ];
+
+// const Slideshow = () => {
+//     return (
+//         <Slide
+//           images={[
+//             '../../../public/fish1.jpg',
+//             '../../../public/fish2.jpg',
+//             '../../../public/fish3.jpg',
+//             '../../../public/fish4.jpg',
+            
+//           ]}
+//           duration={5000}
+//           transitionDuration={1000}
+//         />
+//     )
+// }
+
 class Home extends React.Component {
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state={images: [
+  //     '../../../public/fish1.jpg',
+  //     '../../../public/fish2.jpg',
+  //     '../../../public/fish3.jpg',
+  //     '../../../public/fish4.jpg',
+  //   ]}
+  // }
+
   render() {
+    const images = [
+      {
+        original: 'http://lorempixel.com/1000/600/nature/1/',
+        thumbnail: 'http://lorempixel.com/250/150/nature/1/',
+      },
+      {
+        original: 'http://lorempixel.com/1000/600/nature/2/',
+        thumbnail: 'http://lorempixel.com/250/150/nature/2/'
+      },
+      {
+        original: 'http://lorempixel.com/1000/600/nature/3/',
+        thumbnail: 'http://lorempixel.com/250/150/nature/3/'
+      }
+    ]
     return (
       <div className={s.root}>
         <Row>
@@ -21,7 +76,7 @@ class Home extends React.Component {
           <Col className={s.trythis} xs={12} md={8} mdOffset={2} />
         </Row>
         <div className={s.container}>
-          <h1>React.js</h1>
+          {/* <ImageGallery items={images} /> */}
         </div>
       </div>
     );

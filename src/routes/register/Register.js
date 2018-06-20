@@ -49,9 +49,18 @@ const MyMapComponent = withScriptjs(
 );
 
 const mapDispatchToProps = dispatch => ({
-  callSignInThunk: (username, password) =>
-    dispatch(logInAsync(username, password)),
+  callSignInThunk: (username) => {
+    console.log(username,'this is from callsigninthunk');
+    dispatch(logInAsync(username))
+  }
 });
+
+const mapStateToProps = (state) => {
+  console.log('this is state from mapstate to props', state)
+  return {
+      username : state.runtime.username,
+  };
+}
 
 class Register extends React.Component {
   static propTypes = {
@@ -167,8 +176,7 @@ class Register extends React.Component {
             .then(() => {
               console.log('in confirm submit');
 
-              this.props
-                .callSignInThunk(this.state.email, this.state.password)
+              this.props.callSignInThunk(this.state.email, this.state.password)
                 .then(resp => console.log(resp));
             })
             .catch(err => console.log(err));
@@ -253,8 +261,12 @@ class Register extends React.Component {
           <h1>{this.props.title}</h1>
           <p>...</p>
 
-          <button onClick={this.props.callSignInThunk}>
+          <button onClick={()=>this.props.callSignInThunk('alex is the best')}>
             Click this to test callSignInThunk
+          </button>
+
+          <button onClick={()=>console.log(this.props)}>
+            Click this to test props test
           </button>
 
           <form onSubmit={this.handleSubmit}>
@@ -295,6 +307,13 @@ class Register extends React.Component {
                 onChange={this.handleChange}
               />
               <HelpBlock>Please check your email for the code.</HelpBlock>
+              {/* <ControlLabel>Confirmation Code</ControlLabel>
+              <FormControl
+                autoFocus
+                type="tel"
+                value={this.state.coordinateArray}
+                onChange={this.handleChange}
+              /> */}
             </FormGroup>
             <button>Confirm</button>
           </form>
@@ -305,14 +324,16 @@ class Register extends React.Component {
           >
             <p>Drop an image or click to select a file to upload.</p>
           </Dropzone>
-          <button
+          {/* <button
             onClick={() => {
               axios
                 .post(
                   'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/users',
                   {
-                    text: 'test from react',
+                    text: this.state.,
                     url: 'cool beans',
+                    email: this.props.email,
+                    coordinateArray: this.state.coordinateArray
                   },
                 )
                 .then(res => console.log('react is good to go', res))
@@ -320,7 +341,7 @@ class Register extends React.Component {
             }}
           >
             click me to test user creation
-          </button>
+          </button> */}
           <MyMapComponent
             isMarkerShown
             googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
@@ -336,8 +357,7 @@ class Register extends React.Component {
             />
           )}
           {console.log(
-            'this is the string the image is using',
-            this.state.retrievedString,
+            this.props
           )}
           <div id="list">
             <h1>Uploaded Files:</h1>
@@ -347,4 +367,4 @@ class Register extends React.Component {
     );
   }
 }
-export default connect(null, mapDispatchToProps)(withStyles(s)(Register));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(s)(Register));

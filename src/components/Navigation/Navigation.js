@@ -20,8 +20,11 @@ import Link from '../Link';
 //   toggleTheme: () => {},
 // });
 
-const mapStateToProps = state => state;
-
+const mapStateToProps = (state) => {
+  return {
+      username : state.runtime.username,
+  };
+}
 class Navigation extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -41,9 +44,8 @@ class Navigation extends React.Component {
         <Link className={s.mybutton} to="/contact">
           Contact
         </Link>
-        {console.log('from nav', this.props)}
 
-        {this.props.signedIn ? (
+        {this.props.username ? (
           <>
             <span className={s.spacer}> | </span>
             <Link className={s.mybutton} to="/trips">

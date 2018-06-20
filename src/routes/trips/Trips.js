@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Dropzone from 'react-dropzone';
 import { blobToBase64String } from 'blob-util';
+import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import {
@@ -29,19 +30,27 @@ import {
 
 import s from './Trips.css';
 
+const mapStateToProps = (state) => {
+  return {
+      username : state.runtime.username,
+  };
+}
+
 const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap defaultZoom={3} defaultCenter={{ lat: 36.1627, lng: -86.7816 }}>
       {props.isMarkerShown &&
         props.coordinateArray.map(entry => (
           <Marker
-            key={parseInt(entry.L[0].N)}
+            key={entry[0]}
             position={{
-              lat: parseInt(entry.L[0].N),
-              lng: parseInt(entry.L[1].N),
+              lat: entry[0],
+              lng: entry[1],
             }}
           />
-        ))}
+        ))
+        // console.log('from my map component',props.coordinateArray[0][1])
+        }
     </GoogleMap>
   )),
 );
@@ -66,26 +75,26 @@ class Trips extends React.Component {
       tripName: '',
       tripDescription: '',
       newUser: null,
+      markerShown: false
     };
   }
 
   componentDidMount() {
-    axios
-      .post(
-        'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/readUsers',
-        {
-          email: 'alexander.j.reed@accenture.com',
-        },
-      )
-      .then(userData => {
-        console.log(userData);
-        this.setState({
-          coordinateArray: userData.data.Item.coordinateArray.L,
-          email: 'alexander.j.reed@accenture.com',
-        });
-        console.log(this.state.coordinateArray);
-      })
-      .catch(err => console.log(err));
+    // axios
+    //   .post(
+    //     'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/readUsers',
+    //     {
+    //       email: this.props.username,
+    //     },
+    //   )
+    //   .then(userData => {
+    //     console.log(userData);
+    //     this.setState({
+    //       coordinateArray: userData.data.Item.coordinateArray.L,
+    //     });
+    //     console.log(this.state.coordinateArray);
+    //   })
+    //   .catch(err => console.log(err));
   }
 
   onImageDrop(file) {
@@ -99,14 +108,13 @@ class Trips extends React.Component {
           pictureString: base64String,
         });
         const data = JSON.stringify(this.state.pictureString);
-        axios
-          .post(
+        axios.post(
             'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/requestUploadURL',
             data,
             {
               headers: {
                 'Content-Type': 'text/text',
-                imageName: this.state.email,
+                imageName: this.state.tripName
               },
             },
           )
@@ -145,10 +153,14 @@ class Trips extends React.Component {
     let email1 = pair[0];
     let password1 = pair[1];
     let count = 0;
+    let coordinate1=[];
     console.log('this is data', data);
 
     for (var pair of data.entries()) {
-      count == 0 ? (email1 = pair[1]) : (password1 = pair[1]);
+      (count == 0 && (email1 = pair[1]));
+      (count == 1 && (password1 = pair[1]));
+      (count == 2 && (coordinate1 = pair[1]));
+      // (password1 = pair[1]);
       console.log(pair);
       count++;
     }
@@ -156,20 +168,30 @@ class Trips extends React.Component {
       {
         tripName: email1,
         tripDescription: password1,
+        coordinateArray:JSON.parse(coordinate1),
       },
       () => {
         try {
-          axios
-            .post(
-              'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/users',
-              {
-                text: this.state.tripDescription,
-                tripName: this.state.tripName,
-              },
-            )
-            .then(res => console.log('react is good to go', res))
-            .catch(err => console.log(err));
-          console.log(this.state.tripName, this.state.tripDescription);
+          console.log(typeof(this.state.coordinateArray))
+          console.log('before users post ', this.state.tripName,' ', this.state.tripDescription,' ',this.props.username,' ', this.state.coordinateArray)
+          // axios
+          //   .post(
+          //     ' https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/writeUsers',
+          //     {
+          //       text: this.state.tripName+'\n'+this.state.tripDescription,
+          //       url: this.state.tripName,
+          //       email: this.props.username,//NEEDS TO CHANGE
+          //       coordinateArray: this.state.coordinateArray
+          //     },
+          //   )
+          //   .then(res =>{ 
+          //     console.log('react is good to go', res);
+              this.setState(
+                {
+                  markerShown: true
+                })
+          //   .catch(err => console.log(err));
+          // console.log(this.state.tripName, this.state.tripDescription);
         } catch (e) {
           alert(e.message);
         }
@@ -198,7 +220,7 @@ class Trips extends React.Component {
           )}
           {this.state.tripDescription && <h3>{this.state.tripDescription}</h3>}
           <MyMapComponent
-            isMarkerShown
+            isMarkerShown={this.state.markerShown}
             googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
             loadingElement={<div style={{ height: `100%` }} />}
             containerElement={<div style={{ height: `300px` }} />}
@@ -250,6 +272,18 @@ class Trips extends React.Component {
               />
             </div>
             <div className={s.formGroup}>
+              <label className={s.label} htmlFor="coordinates">
+                Trip description:
+              </label>
+              <br />
+              <textarea
+                className={s.inputLarge}
+                id="coordinates"
+                type="text"
+                name="coordinates"
+              />
+            </div>
+            <div className={s.formGroup}>
               <button className="btn btn-primary-outlined">Add trip</button>
             </div>
           </form>
@@ -263,12 +297,15 @@ class Trips extends React.Component {
           </Dropzone>
           <button
             onClick={() => {
+              console.log('before users post ', this.state.tripName,' ', this.state.tripDescription,' ', this.props.username,' ', this.state.coordinateArray)
               axios
                 .post(
                   'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/users',
                   {
-                    text: 'test from react',
-                    url: 'cool beans',
+                    text: this.state.tripName+'\n'+this.state.tripDescription,
+                    url: this.state.tripName,
+                    email: this.props.username,
+                    coordinateArray: this.state.coordinateArray
                   },
                 )
                 .then(res => console.log('react is good to go', res))
@@ -339,7 +376,7 @@ class Trips extends React.Component {
                     Is something on our application not working properly?
                   </p>
                   <a
-                    href="mailto:alexjreed7@gmail.com?Subject=Hello%20again"
+                    href="mailto:alexjreed7@gmail.com?Subject=Error"
                     className="btn btn-primary"
                   >
                     Click here!
@@ -355,7 +392,7 @@ class Trips extends React.Component {
                     Are you interested in parterning with FacePay?
                   </p>
                   <a
-                    href="mailto:alexjreed7@gmail.com?Subject=Hello%20again"
+                    href="mailto:alexjreed7@gmail.com?Subject=Partnership"
                     target="_top"
                     className="btn btn-primary"
                   >
@@ -372,7 +409,7 @@ class Trips extends React.Component {
                     Are you looking to write a story about FacePay?
                   </p>
                   <a
-                    href="mailto:alexjreed7@gmail.com?Subject=Hello%20again"
+                    href="mailto:alexjreed7@gmail.com?Subject=Story"
                     target="_top"
                     className="btn btn-primary"
                   >
@@ -393,4 +430,4 @@ class Trips extends React.Component {
 //   <button className={s.button}>Large</button>
 // </div>
 
-export default withStyles(s, bootstrap)(Trips);
+export default connect(mapStateToProps)(withStyles(s, bootstrap)(Trips));
