@@ -20,11 +20,9 @@ import Link from '../Link';
 //   toggleTheme: () => {},
 // });
 
-const mapStateToProps = (state) => {
-  return {
-      username : state.runtime.username,
-  };
-}
+const mapStateToProps = state => ({
+  username: state.runtime.username,
+});
 class Navigation extends React.Component {
   constructor(props, context) {
     super(props, context);

@@ -49,18 +49,18 @@ const MyMapComponent = withScriptjs(
 );
 
 const mapDispatchToProps = dispatch => ({
-  callSignInThunk: (username) => {
-    console.log(username,'this is from callsigninthunk');
-    dispatch(logInAsync(username))
-  }
+  callSignInThunk: username => {
+    console.log(username, 'this is from callsigninthunk');
+    dispatch(logInAsync(username));
+  },
 });
 
-const mapStateToProps = (state) => {
-  console.log('this is state from mapstate to props', state)
+const mapStateToProps = state => {
+  console.log('this is state from mapstate to props', state);
   return {
-      username : state.runtime.username,
+    username: state.runtime.username,
   };
-}
+};
 
 class Register extends React.Component {
   static propTypes = {
@@ -176,13 +176,13 @@ class Register extends React.Component {
             .then(() => {
               console.log('in confirm submit');
 
-              this.props.callSignInThunk(this.state.email, this.state.password)
-                .then(()=>{
+              this.props
+                .callSignInThunk(this.state.email, this.state.password)
+                .then(() => {
                   this.setState({
-                    confirmed:true
-                  })
-                }
-                );
+                    confirmed: true,
+                  });
+                });
             })
             .catch(err => console.log(err));
         })
@@ -192,7 +192,6 @@ class Register extends React.Component {
       this.setState({ isLoading: false });
     }
   };
-
 
   handleChange = event => {
     this.setState({
@@ -206,58 +205,58 @@ class Register extends React.Component {
         <div className={s.container}>
           <h1 className={s.head}>{this.props.title}</h1>
           {this.props.username && <h3>Logged In!</h3>}
-          {!(this.state.newUser) ? 
-          <form onSubmit={this.handleSubmit}>
-            <div className={s.formGroup}>
-              <label className={s.label} htmlFor="usernameOrEmail">
-                Email address:
-                <br/>
-                <input
-                  className={s.input}
-                  id="usernameOrEmail"
-                  type="text"
-                  name="usernameOrEmail"
-                  autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+          {!this.state.newUser ? (
+            <form onSubmit={this.handleSubmit}>
+              <div className={s.formGroup}>
+                <label className={s.label} htmlFor="usernameOrEmail">
+                  Email address:
+                  <br />
+                  <input
+                    className={s.input}
+                    id="usernameOrEmail"
+                    type="text"
+                    name="usernameOrEmail"
+                    autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+                  />
+                </label>
+              </div>
+              <div className={s.formGroup}>
+                <label className={s.label} htmlFor="password">
+                  Password:
+                  <br />
+                  <input
+                    className={s.input}
+                    id="password"
+                    type="password"
+                    name="password"
+                  />
+                </label>
+              </div>
+              <div className={s.formGroup}>
+                <button className="btn button-secondary">Sign up</button>
+              </div>
+            </form>
+          ) : (
+            <form onSubmit={this.handleConfirmationSubmit}>
+              <FormGroup controlId="confirmationCode" bsSize="large">
+                <ControlLabel>Confirmation Code</ControlLabel>
+                <FormControl
+                  autoFocus
+                  type="tel"
+                  value={this.state.confirmationCode}
+                  onChange={this.handleChange}
                 />
-              </label>
-            </div>
-            <div className={s.formGroup}>
-              <label className={s.label} htmlFor="password">
-                Password:
-                <br/>
-                <input
-                  className={s.input}
-                  id="password"
-                  type="password"
-                  name="password"
-                />
-              </label>
-            </div>
-            <div className={s.formGroup}>
-              <button className="btn button-secondary">Sign up</button>
-            </div>
-          </form>
-          :
-          <form onSubmit={this.handleConfirmationSubmit}>
-            <FormGroup controlId="confirmationCode" bsSize="large">
-              <ControlLabel>Confirmation Code</ControlLabel>
-              <FormControl
-                autoFocus
-                type="tel"
-                value={this.state.confirmationCode}
-                onChange={this.handleChange}
-              />
-              <HelpBlock>Please check your email for the code.</HelpBlock>
-              
-            </FormGroup>
-            <button className="btn button-secondary">Confirm</button>
-          </form>
-          }
-          
+                <HelpBlock>Please check your email for the code.</HelpBlock>
+              </FormGroup>
+              <button className="btn button-secondary">Confirm</button>
+            </form>
+          )}
         </div>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(s)(Register));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(s)(Register),
+);
