@@ -11,21 +11,35 @@
 
 .inputSmall {
   height: 80px;
-  width: 200px;
+  width: 400px;
   font-size: 12pt;
+  border-color: tan;
+ 
+  text-align:center;
+  border-radius: 8px;
+
 }
 
 .inputLarge {
   height: 300px;
   width: 400px;
   font-size: 12pt;
-  margin-bottom: 5px;
+  border-color: tan;
+  text-align:center;
+  border-radius: 8px;
 }
 
 .root {
   padding-top: 10px;
   padding-left: 20px;
   padding-right: 20px;
+  text-align: center;
+  color:gray;
+  font-size: 20px;
+}
+
+.mapComponent {
+  margin-top: 20px;
 }
 
 .container {
@@ -35,19 +49,87 @@
   text-align: center;
 }
 
+.tripName {
+  color: rgb(99, 133, 89);
+  font-size: 30px;
+}
+
+.tripDescription {
+  color: rgb(95, 112, 90);
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.tripPic {
+  margin-bottom: 40px;
+}
+
+
+.dropzone {
+  margin: 20px auto;
+  width : 250px;
+  height : 80px;
+  border : 5px solid gray;
+  background-color: rgb(221, 188, 117);
+  border-radius: 8px;
+  margin-bottom: 38px;
+  color:white;
+}
+
 .head {
-  padding-bottom: 10px;
+  padding-bottom: 30px;
+  padding-top: 15px;
+  font-weight: bold;
   color: #1ca97a;
 }
+
+.largeForm {
+  text-align:center;
+  width: 50%; 
+  margin: 0 auto;
+}
+
+/* .formGroup {
+  width: 40%;
+  text-align:center;
+} */
+
+/* .input{
+  width: 60%;
+  border-color: tan;
+  height: 40px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  text-align:center;
+  border-radius: 8px;
+} */
+
+.title {
+  font-style: italic;
+  font-family: georgia, script;
+  font-weight: bold;
+  color: brown;
+  margin-bottom: 35px;
+}
+
+/* .title {
+  font-weight: bold;
+  font-size: 35px;
+  font-style: italic;
+  font-family: georgia, script;
+  color:brown;
+  margin-bottom: 30px;
+} */
 
 .cardcontainer {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
   margin: auto;
   text-align: center;
-  color: #1d72aa;
+  color: #e59b3b;
+  padding-bottom: 10px;
+  margin: 50px 0;
 }
-
 /*
 .button {
     padding: 18px 28px;

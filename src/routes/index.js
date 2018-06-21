@@ -26,15 +26,15 @@ Amplify.configure({
   Auth: {
     mandatorySignIn: true,
     region: 'us-east-1',
-    userPoolId: 'us-east-1_kyuGMSqi1',
-    identityPoolId: 'us-east-1:ee7ea795-c051-4046-a393-0703ccbed52f',
-    userPoolWebClientId: '2c2960skbgm3du9f7kh1j8mosn',
+    userPoolId: 'us-east-1_9ODtEmzy4',
+    identityPoolId: 'us-east-1:b613ae29-f603-451a-9c3a-cf736a065d26',
+    userPoolWebClientId: '1bi6v32bba1mldpdks52nshdov',
   },
   API: {
     endpoints: [
       {
         name: 'testApiCall',
-        endpoint: 'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev',
+        endpoint: 'https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev',
         region: 'us-east-1',
       },
     ],

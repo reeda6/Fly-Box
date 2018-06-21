@@ -23,7 +23,7 @@ class Contact extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1 className={s.head}>{this.props.title}</h1>
+          <h1 className={s.title}>{this.props.title}</h1>
           <div className="row">
             <div className="col-sm">
               <div className={s.cardcontainer}>
@@ -34,7 +34,7 @@ class Contact extends React.Component {
                   </p>
                   <a
                     href="mailto:alexjreed7@gmail.com?Subject=Hello%20again"
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                   >
                     Click here!
                   </a>
@@ -51,7 +51,7 @@ class Contact extends React.Component {
                   <a
                     href="mailto:alexjreed7@gmail.com?Subject=Hello%20again"
                     target="_top"
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                   >
                     Click here!
                   </a>
@@ -68,7 +68,7 @@ class Contact extends React.Component {
                   <a
                     href="mailto:alexjreed7@gmail.com?Subject=Hello%20again"
                     target="_top"
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                   >
                     Click here!
                   </a>

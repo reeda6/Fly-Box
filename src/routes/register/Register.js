@@ -80,13 +80,13 @@ class Register extends React.Component {
       email: '',
       password: '',
       confirmPassword: '',
-      confirmationCode: '',
+      confirmed: false,
       newUser: null,
     };
   }
 
   // getCoordinates(){
-  //   axios.post('https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/users',{
+  //   axios.post('https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/users',{
   //     email:"alex@email"
   //   })
   //     .then((userData)=> console.log('this is my user data', userData))
@@ -105,20 +105,20 @@ class Register extends React.Component {
   //   </GoogleMap>
   // )};
 
-  componentDidMount() {
-    // axios.post('https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/readUsers', {
-    //   email: "alex@email"
-    // })
-    //   .then((userData) => {
-    //     this.setState({
-    //       coordinateArray: userData.data.Item.coordinateArray.L,
-    //       email: "alex@email"
-    //     });
-    //     console.log(this.state.coordinateArray);
-    //   })
-    //   .catch((err) => console.log(err));
-    // console.log([0, 1]);
-  }
+  // componentDidMount() {
+  //   // axios.post('https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/readUsers', {
+  //   //   email: "alex@email"
+  //   // })
+  //   //   .then((userData) => {
+  //   //     this.setState({
+  //   //       coordinateArray: userData.data.Item.coordinateArray.L,
+  //   //       email: "alex@email"
+  //   //     });
+  //   //     console.log(this.state.coordinateArray);
+  //   //   })
+  //   //   .catch((err) => console.log(err));
+  //   // console.log([0, 1]);
+  // }
 
   handleSubmit = async event => {
     event.preventDefault();
@@ -177,7 +177,12 @@ class Register extends React.Component {
               console.log('in confirm submit');
 
               this.props.callSignInThunk(this.state.email, this.state.password)
-                .then(resp => console.log(resp));
+                .then(()=>{
+                  this.setState({
+                    confirmed:true
+                  })
+                }
+                );
             })
             .catch(err => console.log(err));
         })
@@ -188,65 +193,6 @@ class Register extends React.Component {
     }
   };
 
-  onImageDrop(file) {
-    this.setState({
-      pictureString: file[0],
-      // pictureURL: URL.createObjectURL(file[0])
-    });
-
-    // 'data:image/jpeg;base64, '+
-    blobToBase64String(file[0])
-      .then(base64String => {
-        console.log('this is string ', base64String);
-        this.setState({
-          pictureString: base64String,
-        });
-        console.log('this is state string ', this.state.pictureString);
-
-        const data = JSON.stringify(this.state.pictureString);
-        console.log('this is the data', data);
-        axios
-          .post(
-            'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/requestUploadURL',
-            data,
-            {
-              headers: {
-                'Content-Type': 'text/text',
-              },
-            },
-          )
-          .then(param => {
-            console.log('lambda worked\n\n\n\n\n', param);
-            // let headers= {'Content-Type':'text/text'}
-            // let data=JSON.stringify(this.state.pictureString)
-
-            console.log('picture string is this', this.state.pictureString);
-
-            axios
-              .get(
-                'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/getImages',
-                {
-                  email: this.state.email,
-                },
-              )
-              .then(obj => {
-                this.setState({
-                  retrievedString: Buffer.from(obj.data.objData.data).toString(
-                    'utf-8',
-                  ),
-                });
-                console.log(
-                  'this is the url u want ',
-                  Buffer.from(obj.data.objData.data).toString('base64'),
-                );
-              });
-          })
-          .catch(err => console.log(err));
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
 
   handleChange = event => {
     this.setState({
@@ -258,21 +204,14 @@ class Register extends React.Component {
     return (
       <div className={s.root} ref="myRef">
         <div className={s.container}>
-          <h1>{this.props.title}</h1>
-          <p>...</p>
-
-          <button onClick={()=>this.props.callSignInThunk('alex is the best')}>
-            Click this to test callSignInThunk
-          </button>
-
-          <button onClick={()=>console.log(this.props)}>
-            Click this to test props test
-          </button>
-
+          <h1 className={s.head}>{this.props.title}</h1>
+          {this.props.username && <h3>Logged In!</h3>}
+          {!(this.state.newUser) ? 
           <form onSubmit={this.handleSubmit}>
             <div className={s.formGroup}>
               <label className={s.label} htmlFor="usernameOrEmail">
                 Email address:
+                <br/>
                 <input
                   className={s.input}
                   id="usernameOrEmail"
@@ -285,6 +224,7 @@ class Register extends React.Component {
             <div className={s.formGroup}>
               <label className={s.label} htmlFor="password">
                 Password:
+                <br/>
                 <input
                   className={s.input}
                   id="password"
@@ -294,9 +234,10 @@ class Register extends React.Component {
               </label>
             </div>
             <div className={s.formGroup}>
-              <button className={s.button}>Sign up</button>
+              <button className="btn button-secondary">Sign up</button>
             </div>
           </form>
+          :
           <form onSubmit={this.handleConfirmationSubmit}>
             <FormGroup controlId="confirmationCode" bsSize="large">
               <ControlLabel>Confirmation Code</ControlLabel>
@@ -307,61 +248,12 @@ class Register extends React.Component {
                 onChange={this.handleChange}
               />
               <HelpBlock>Please check your email for the code.</HelpBlock>
-              {/* <ControlLabel>Confirmation Code</ControlLabel>
-              <FormControl
-                autoFocus
-                type="tel"
-                value={this.state.coordinateArray}
-                onChange={this.handleChange}
-              /> */}
+              
             </FormGroup>
-            <button>Confirm</button>
+            <button className="btn button-secondary">Confirm</button>
           </form>
-          <Dropzone
-            multiple={false}
-            accept="image/*"
-            onDrop={this.onImageDrop.bind(this)}
-          >
-            <p>Drop an image or click to select a file to upload.</p>
-          </Dropzone>
-          {/* <button
-            onClick={() => {
-              axios
-                .post(
-                  'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/users',
-                  {
-                    text: this.state.,
-                    url: 'cool beans',
-                    email: this.props.email,
-                    coordinateArray: this.state.coordinateArray
-                  },
-                )
-                .then(res => console.log('react is good to go', res))
-                .catch(err => console.log(err));
-            }}
-          >
-            click me to test user creation
-          </button> */}
-          <MyMapComponent
-            isMarkerShown
-            googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `300px` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
-            coordinateArray={this.state.coordinateArray}
-          />
-          {this.state.retrievedString && (
-            <img
-              src={`data:image/jpeg;base64,${this.state.retrievedString}`}
-              alt="mypic"
-            />
-          )}
-          {console.log(
-            this.props
-          )}
-          <div id="list">
-            <h1>Uploaded Files:</h1>
-          </div>
+          }
+          
         </div>
       </div>
     );

@@ -26,12 +26,21 @@
   color: #1ca97a;
 }
 
+.title {
+  font-style: italic;
+  font-family: georgia, script;
+  font-weight: bold;
+  color: brown;
+  margin-bottom: 20px;
+}
+
 .cardcontainer {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
   margin: auto;
   text-align: center;
-  color: #1d72aa;
+  color: #e59b3b;
+  padding-bottom: 10px;
 }
 
 /*

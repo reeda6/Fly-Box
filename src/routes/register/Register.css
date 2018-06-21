@@ -18,6 +18,33 @@
   margin: 0 auto;
   padding: 0 80px 50px;
   max-width: var(--max-content-width);
+  text-align: center;
+  color:gray;
+  font-size: 20px;
+  
+}
+
+.label {
+  width: 70%;
+}
+
+.input{
+  width: 100%;
+  border-color: tan;
+  height: 40px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  text-align:center;
+  border-radius: 8px;
+}
+
+.head {
+  font-weight: bold;
+  font-size: 35px;
+  font-style: italic;
+  font-family: georgia, script;
+  color:brown;
+  margin-bottom: 30px;
 }
 
 /*

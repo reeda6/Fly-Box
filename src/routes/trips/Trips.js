@@ -82,7 +82,7 @@ class Trips extends React.Component {
   componentDidMount() {
     // axios
     //   .post(
-    //     'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/readUsers',
+    //     'https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/readUsers',
     //     {
     //       email: this.props.username,
     //     },
@@ -109,7 +109,7 @@ class Trips extends React.Component {
         });
         const data = JSON.stringify(this.state.pictureString);
         axios.post(
-            'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/requestUploadURL',
+            'https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/requestUploadURL',
             data,
             {
               headers: {
@@ -121,9 +121,9 @@ class Trips extends React.Component {
           .then(param => {
             axios
               .post(
-                'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/getImages',
+                'https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/getImages',
                 {
-                  email: this.state.email,
+                  email: this.state.tripName,
                 },
               )
               .then(obj => {
@@ -131,11 +131,11 @@ class Trips extends React.Component {
                   retrievedString: Buffer.from(obj.data.objData.data).toString(
                     'utf-8',
                   ),
-                });
-                console.log(
+                }, console.log(
                   'this is the url u want ',
-                  Buffer.from(obj.data.objData.data).toString('base64'),
-                );
+                  this.state.retrievedString
+                ));
+                
               });
           })
           .catch(err => console.log(err));
@@ -174,25 +174,24 @@ class Trips extends React.Component {
         try {
           console.log(typeof(this.state.coordinateArray))
           console.log('before users post ', this.state.tripName,' ', this.state.tripDescription,' ',this.props.username,' ', this.state.coordinateArray)
-          // axios
-          //   .post(
-          //     ' https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/writeUsers',
-          //     {
-          //       text: this.state.tripName+'\n'+this.state.tripDescription,
-          //       url: this.state.tripName,
-          //       email: this.props.username,//NEEDS TO CHANGE
-          //       coordinateArray: this.state.coordinateArray
-          //     },
-          //   )
-          //   .then(res =>{ 
-          //     console.log('react is good to go', res);
+          axios
+            .post(
+              ' https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/writeUsers',
+              {
+                text: this.state.tripName+'\n'+this.state.tripDescription,
+                url: this.state.tripName,
+                email: this.props.username,//NEEDS TO CHANGE
+                coordinateArray: this.state.coordinateArray
+              },
+            )
+            .then(res =>{ 
+              console.log('react is good to go', res);
               this.setState(
                 {
                   markerShown: true
-                })
-          //   .catch(err => console.log(err));
-          // console.log(this.state.tripName, this.state.tripDescription);
-        } catch (e) {
+                });
+        
+        })} catch (e) {
           alert(e.message);
         }
       },
@@ -209,16 +208,16 @@ class Trips extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1 className={s.head}>{this.props.title}</h1>
-          <h1 className={s.head}>My Trip</h1>
-          {this.state.tripName && <h3>{this.state.tripName}</h3>}
-          {this.state.retrievedString && (
-            <img
-              src={`data:image/jpeg;base64,${this.state.retrievedString}`}
-              alt="mypic"
-            />
-          )}
-          {this.state.tripDescription && <h3>{this.state.tripDescription}</h3>}
+          <h1 className={s.title}>{this.props.title}</h1>
+          
+          <hr/>
+          {this.state.retrievedString && 
+          <>
+          <h1 className={s.head}>My Recent Trip</h1>
+          {this.state.tripName && <h3 className={s.tripName}>{this.state.tripName}</h3>}
+          {this.state.tripDescription && <h3 className={s.tripDescription}>{this.state.tripDescription}</h3>}
+          <img className={s.tripPic} src={`data:image/jpeg;base64,${this.state.retrievedString}`}
+              alt="mypic"/>
           <MyMapComponent
             isMarkerShown={this.state.markerShown}
             googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
@@ -226,26 +225,14 @@ class Trips extends React.Component {
             containerElement={<div style={{ height: `300px` }} />}
             mapElement={<div style={{ height: `100%` }} />}
             coordinateArray={this.state.coordinateArray}
+            className={s.mapComponent}
           />
+          <hr/>
+
+          </>}
 
           <h1 className={s.head}>Add Trip</h1>
-
-          {/* <form onSubmit={this.handleAddTrip}>
-            {/*<FormGroup bsSize="large">
-               <ControlLabel>Name of your trip</ControlLabel>
-              <FormControl autoFocus type="tel" value={this.state.tripName} onChange={this.handleChange} />
-              <ControlLabel>Description of your trip</ControlLabel>
-              <FormControl autoFocus  value={this.state.tripDescription} onChange={this.handleChange} /> 
-              <div className="form-group">
-                <label htmlFor="exampleInputPassword1">Password</label>
-                <input type="password" className="form-control" id="email" placeholder="Description"/>
-                <label htmlFor="password">Example textarea</label>
-                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>         
-            <button type="submit">Confirm</button>
-          </form> */}
-
-          <form onSubmit={this.handleAddTrip}>
+          <form onSubmit={this.handleAddTrip} className={s.largeForm}>
             <div className={s.formGroup}>
               <label className={s.label} htmlFor="usernameOrEmail">
                 Trip name:
@@ -273,18 +260,18 @@ class Trips extends React.Component {
             </div>
             <div className={s.formGroup}>
               <label className={s.label} htmlFor="coordinates">
-                Trip description:
+                Enter coordinates in array of arrays:
               </label>
               <br />
               <textarea
-                className={s.inputLarge}
+                className={s.inputSmall}
                 id="coordinates"
                 type="text"
                 name="coordinates"
               />
             </div>
             <div className={s.formGroup}>
-              <button className="btn btn-primary-outlined">Add trip</button>
+              <button className="btn btn-secondary-outlined">Add trip</button>
             </div>
           </form>
 
@@ -292,15 +279,16 @@ class Trips extends React.Component {
             multiple={false}
             accept="image/*"
             onDrop={this.onImageDrop.bind(this)}
+            className={s.dropzone}
           >
             <p>Drop an image or click to select a file to upload.</p>
           </Dropzone>
-          <button
+          {/* <button
             onClick={() => {
               console.log('before users post ', this.state.tripName,' ', this.state.tripDescription,' ', this.props.username,' ', this.state.coordinateArray)
               axios
                 .post(
-                  'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev/users',
+                  'https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/users',
                   {
                     text: this.state.tripName+'\n'+this.state.tripDescription,
                     url: this.state.tripName,
@@ -313,21 +301,23 @@ class Trips extends React.Component {
             }}
           >
             click me to test user creation
-          </button>
+          </button> */}
 
+          <hr/>
+          <h1 className={s.head}>My Other Trips</h1>
           <div className="row">
             <div className="col-sm">
               <div className={s.cardcontainer}>
                 <div className="card-body">
-                  <h5 className="card-title">Technical Support</h5>
+                  <h5 className="card-title">Bahamas</h5>
                   <p className="card-text">
-                    Is something on our application not working properly?
+                    Bonefish excursion
                   </p>
                   <a
                     href="mailto:alexjreed7@gmail.com?Subject=Hello%20again"
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                   >
-                    Click here!
+                    Click here to view or share
                   </a>
                 </div>
               </div>
@@ -335,16 +325,16 @@ class Trips extends React.Component {
             <div className="col-sm">
               <div className={s.cardcontainer}>
                 <div className="card-body">
-                  <h5 className="card-title">Business and Partnerships</h5>
+                  <h5 className="card-title">Rocky Mountains</h5>
                   <p className="card-text">
-                    Are you interested in parterning with FacePay?
+                    Rainbow trout in shallow waters
                   </p>
                   <a
                     href="mailto:alexjreed7@gmail.com?Subject=Hello%20again"
                     target="_top"
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                   >
-                    Click here!
+                    Click here to view or share
                   </a>
                 </div>
               </div>
@@ -352,32 +342,36 @@ class Trips extends React.Component {
             <div className="col-sm">
               <div className={s.cardcontainer}>
                 <div className="card-body">
-                  <h5 className="card-title">Press</h5>
+                  <h5 className="card-title">Alaska</h5>
                   <p className="card-text">
-                    Are you looking to write a story about FacePay?
+                    Coho salmon off egg fly pattern
                   </p>
                   <a
                     href="mailto:alexjreed7@gmail.com?Subject=Hello%20again"
                     target="_top"
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                   >
-                    Click here!
+                    Click here to view or share
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
+          <hr/>
+
+          <h1 className={s.head}>My Friends' Trips</h1>
           <div className="row">
             <div className="col-sm">
               <div className={s.cardcontainer}>
                 <div className="card-body">
-                  <h5 className="card-title">Technical Support</h5>
+                  <h5 className="card-title">Jim's Hawaii Trip</h5>
                   <p className="card-text">
-                    Is something on our application not working properly?
+                    Sailfish fishing
                   </p>
                   <a
                     href="mailto:alexjreed7@gmail.com?Subject=Error"
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                   >
                     Click here!
                   </a>
@@ -387,14 +381,14 @@ class Trips extends React.Component {
             <div className="col-sm">
               <div className={s.cardcontainer}>
                 <div className="card-body">
-                  <h5 className="card-title">Business and Partnerships</h5>
+                  <h5 className="card-title">Alex's Adirondack Adventure</h5>
                   <p className="card-text">
-                    Are you interested in parterning with FacePay?
+                    Brown trout off bank
                   </p>
                   <a
                     href="mailto:alexjreed7@gmail.com?Subject=Partnership"
                     target="_top"
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                   >
                     Click here!
                   </a>
@@ -404,14 +398,14 @@ class Trips extends React.Component {
             <div className="col-sm">
               <div className={s.cardcontainer}>
                 <div className="card-body">
-                  <h5 className="card-title">Press</h5>
+                  <h5 className="card-title">Ann's Bass Excursion</h5>
                   <p className="card-text">
-                    Are you looking to write a story about FacePay?
+                    Florida lake topwater bass
                   </p>
                   <a
                     href="mailto:alexjreed7@gmail.com?Subject=Story"
                     target="_top"
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                   >
                     Click here!
                   </a>
