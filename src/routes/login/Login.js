@@ -11,7 +11,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Auth } from 'aws-amplify';
+import { connect } from 'react-redux';
+import { logInAsync } from '../../actions/runtime';
 import s from './Login.css';
+
+const mapDispatchToProps = dispatch => ({
+  callSignInThunk: (username) => {
+    console.log(username,'this is from callsigninthunk login');
+    dispatch(logInAsync(username))
+  }
+});
+
+const mapStateToProps = (state) => {
+  console.log('this is state from mapstate to props login', state)
+  return {
+      username : state.runtime.username,
+  };
+}
 
 class Login extends React.Component {
   static propTypes = {
@@ -26,7 +42,16 @@ class Login extends React.Component {
       password: '',
     };
   }
+
   static contextTypes = {};
+
+  componentDidMount() {
+    if(this.props.username){
+      Auth.signOut()
+        .then(()=> this.props.callSignInThunk('')
+      )
+    } 
+  }
 
   handleSubmit = async event => {
     event.preventDefault();
@@ -40,32 +65,33 @@ class Login extends React.Component {
       count++;
     }
 
+
     if (this.refs.myRef) {
+      console.log('this is email1 ', email1, 'this is pword1 ', password1);
+
       this.setState({
         email: email1,
         password: password1,
-      });
-    }
-
-    console.log(this.state.email, this.state.password);
-    try {
-      await Auth.signIn(this.state.email, this.state.password);
-      // this.props.userHasAuthenticated(true);
-      // this.props.history.push('/');
-    } catch (e) {
-      alert(e.message);
-      // this.setState({ isLoading: false });
-    }
+      },()=>{
+        Auth.signIn(this.state.email, this.state.password)
+          .then((user)=>{
+              this.props.callSignInThunk(this.state.email, this.state.password)
+                // .then((res)=>console.log('signed in ', res))
+                //.catch((err)=>alert(err))
+          })
+          //.catch((err)=> alert(err))
+        }
+    );}
+  
   };
 
   render() {
     return (
       <div className={s.root} ref="myRef">
         <div className={s.container}>
-          <h1>{this.props.title}</h1>
-          <p className={s.lead}>
-            Log in with your username or company email address.
-          </p>
+          <h1 className={s.title}>{this.props.title}</h1>
+          <strong className={s.lineThrough}>WITH</strong>
+
           <div className={s.formGroup}>
             <a className={s.facebook} href="/login/facebook">
               <svg
@@ -80,8 +106,6 @@ class Login extends React.Component {
               <span>Log in with Facebook</span>
             </a>
           </div>
-          {(this.context.signedIn = true)}
-          {console.log('from login,', this.context)}
           <div className={s.formGroup}>
             <a className={s.google} href="/login/google">
               <svg
@@ -135,7 +159,7 @@ class Login extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <div className={s.formGroup}>
               <label className={s.label} htmlFor="usernameOrEmail">
-                Username or email address:
+                Email address:
                 <input
                   className={s.input}
                   id="usernameOrEmail"
@@ -167,4 +191,4 @@ class Login extends React.Component {
   }
 }
 
-export default withStyles(s)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(s)(Login));

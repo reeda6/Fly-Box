@@ -51,6 +51,10 @@ class Navigation extends React.Component {
             <Link className={s.mybutton} to="/trips">
               View Trips
             </Link>
+            <span className={s.spacerForOr}>or</span>
+            <Link className={s.mybutton} to="/login">
+              Log out
+            </Link>
           </>
         ) : (
           <>

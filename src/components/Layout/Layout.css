@@ -131,11 +131,13 @@ textarea {
 
   a,
   a:visited {
-    text-decoration: underline;
+    text-decoration: none;
+    color:white;
   }
 
   a[href]::after {
     content: ' (' attr(href) ')';
+    color:white;
   }
 
   abbr[title]::after {

@@ -63,7 +63,7 @@ class Contact extends React.Component {
                 <div className="card-body">
                   <h5 className="card-title">Press</h5>
                   <p className="card-text">
-                    Are you looking to write a story about FacePay?
+                    Are you looking to write a story about Fly Box?
                   </p>
                   <a
                     href="mailto:alexjreed7@gmail.com?Subject=Hello%20again"

@@ -10,6 +10,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import history from '../../history';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import bootstrap from 'bootstrap/dist/css/bootstrap.css';
+
+// external-global styles must be imported in your JS.
+import normalizeCss from 'normalize.css';
+
+import s from './Link.css';
 
 function isLeftClickEvent(event) {
   return event.button === 0;
@@ -50,11 +57,11 @@ class Link extends React.Component {
   render() {
     const { to, children, ...props } = this.props;
     return (
-      <a href={to} {...props} onClick={this.handleClick}>
+      <a className={s.myLink} href={to} {...props} onClick={this.handleClick}>
         {children}
       </a>
     );
   }
 }
 
-export default Link;
+export default withStyles(normalizeCss, bootstrap, s)(Link);

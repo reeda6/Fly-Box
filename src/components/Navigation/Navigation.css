@@ -67,6 +67,10 @@
   color: white;
 }
 
+.mybutton:active {
+  color:white;
+}
+
 /* 
 .btn-outline-success-me {
   background-color: white !important;
