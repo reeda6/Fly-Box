@@ -16,18 +16,17 @@ import { logInAsync } from '../../actions/runtime';
 import s from './Login.css';
 
 const mapDispatchToProps = dispatch => ({
-  callSignInThunk: (username) => {
-    console.log(username,'this is from callsigninthunk login');
-    dispatch(logInAsync(username))
-  }
+  callSignInThunk: (username, userSub, newUser) => {
+    console.log(userSub, 'this is from callsigninthunk login');
+    dispatch(logInAsync(username, userSub, newUser));
+  },
 });
 
-const mapStateToProps = (state) => {
-  console.log('this is state from mapstate to props login', state)
-  return {
-      username : state.runtime.username,
-  };
-}
+const mapStateToProps = state => ({
+  username: state.runtime.username,
+  userSub: state.runtime.userSub,
+  newUser: state.runtime.newUser,
+});
 
 class Login extends React.Component {
   static propTypes = {
@@ -46,11 +45,9 @@ class Login extends React.Component {
   static contextTypes = {};
 
   componentDidMount() {
-    if(this.props.username){
-      Auth.signOut()
-        .then(()=> this.props.callSignInThunk('')
-      )
-    } 
+    if (this.props.username) {
+      Auth.signOut().then(() => this.props.callSignInThunk('', '', true));
+    }
   }
 
   handleSubmit = async event => {
@@ -65,24 +62,24 @@ class Login extends React.Component {
       count++;
     }
 
-
     if (this.refs.myRef) {
       console.log('this is email1 ', email1, 'this is pword1 ', password1);
 
-      this.setState({
-        email: email1,
-        password: password1,
-      },()=>{
-        Auth.signIn(this.state.email, this.state.password)
-          .then((user)=>{
-              this.props.callSignInThunk(this.state.email, this.state.password)
-                // .then((res)=>console.log('signed in ', res))
-                //.catch((err)=>alert(err))
-          })
-          //.catch((err)=> alert(err))
-        }
-    );}
-  
+      this.setState(
+        {
+          email: email1,
+          password: password1,
+        },
+        () => {
+          Auth.signIn(this.state.email, this.state.password).then(user => {
+            this.props.callSignInThunk(this.state.email, user.username, false); // note user pool stores sub as 'username'
+            // console.log('signed in ', user)
+            // .catch((err)=>alert(err))
+          });
+          // .catch((err)=> alert(err))
+        },
+      );
+    }
   };
 
   render() {
@@ -191,4 +188,6 @@ class Login extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(s)(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(s)(Login),
+);

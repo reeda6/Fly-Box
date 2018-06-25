@@ -22,20 +22,27 @@ import Amplify from 'aws-amplify';
 //   IDENTITY_POOL_ID: 'us-east-1:ee7ea795-c051-4046-a393-0703ccbed52f'
 // }
 
+import { auth } from '../config.js';
+
 Amplify.configure({
   Auth: {
     mandatorySignIn: true,
-    region: 'us-east-1',
-    userPoolId: 'us-east-1_9ODtEmzy4',
-    identityPoolId: 'us-east-1:b613ae29-f603-451a-9c3a-cf736a065d26',
-    userPoolWebClientId: '1bi6v32bba1mldpdks52nshdov',
+    region: auth.amplify.region,
+    userPoolId: auth.amplify.userPoolId,
+    identityPoolId: auth.amplify.identityPoolId,
+    userPoolWebClientId: auth.amplify.userPoolWebClientId,
+  },
+  Storage: {
+    region: auth.amplify.region,
+    bucket: auth.s3.bucket,
+    identityPoolId: auth.s3.userPoolId,
   },
   API: {
     endpoints: [
       {
-        name: 'testApiCall',
-        endpoint: 'https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev',
-        region: 'us-east-1',
+        name: 'fb-dev-api-2',
+        endpoint: auth.apigateway.URL,
+        region: auth.amplify.region,
       },
     ],
   },

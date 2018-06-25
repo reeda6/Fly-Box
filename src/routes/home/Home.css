@@ -6,7 +6,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-@import "../../../node_modules/react-image-gallery/styles/css/image-gallery.css";
+@import '../../../node_modules/react-image-gallery/styles/css/image-gallery.css';
 @import '../../components/variables.css';
 
 .root {
@@ -35,9 +35,11 @@
 }
 
 .thisPic {
-  border-radius: 4px;
   height: auto; 
-    width: auto; 
-    max-width: 500px; 
-    max-height: 400px;
+  width: auto; 
+  max-width: 500px; 
+  max-height: 400px;
+  border:2px solid white;
+  box-shadow: 0 0 10px white;
+  border-radius: 10px;
 }

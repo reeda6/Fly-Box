@@ -9,10 +9,12 @@ export default function runtime(state = {}, action) {
       };
 
     case LOG_IN:
-      console.log('from LOG_IN',action.payload.username)
+      console.log('from LOG_IN', action.payload.username);
       return {
         ...state,
         username: action.payload.username,
+        userSub: action.payload.userSub,
+        newUser: action.payload.newUser,
       };
     default:
       return state;

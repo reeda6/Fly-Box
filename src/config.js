@@ -9,11 +9,11 @@
 
 /* eslint-disable max-len */
 
-if (process.env.BROWSER) {
-  throw new Error(
-    'Do not import `config.js` from inside the client-side code.',
-  );
-}
+// if (process.env.BROWSER) {
+//   throw new Error(
+//     'Do not import `config.js` from inside the client-side code.',
+//   );
+// }
 
 module.exports = {
   // Node.js app
@@ -45,6 +45,22 @@ module.exports = {
   auth: {
     jwt: { secret: process.env.JWT_SECRET || 'React Starter Kit' },
 
+    amplify: {
+      region: 'us-east-1',
+      userPoolId: 'us-east-1_rHo7LX4JI',
+      identityPoolId: 'us-east-1:9a45e3e5-b56e-483b-bb64-d1023a73841b',
+      userPoolWebClientId: '6f59rus4ar6n30t6ml2obl8ra5',
+    },
+
+    s3: {
+      region: 'us-east-1',
+      bucket: 'fb-dev-api-2-dev-attachmentsbucket-1ta3h1l9iupot',
+    },
+
+    apigateway: {
+      URL: 'https://v9du73d1f5.execute-api.us-east-1.amazonaws.com/dev',
+      region: 'us-east-1',
+    },
     // https://developers.facebook.com/
     facebook: {
       id: process.env.FACEBOOK_APP_ID || '186244551745631',
