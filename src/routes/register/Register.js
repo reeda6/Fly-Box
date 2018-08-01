@@ -1,11 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -87,41 +79,6 @@ class Register extends React.Component {
     };
   }
 
-  // getCoordinates(){
-  //   axios.post('https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/users',{
-  //     email:"alex@email"
-  //   })
-  //     .then((userData)=> console.log('this is my user data', userData))
-  //     .catch((err)=> console.log(err));
-  //   }
-
-  //  MapWithAMarker(props){
-  //    withGoogleMap(props =>
-  //   <GoogleMap
-  //     defaultZoom={8}
-  //     defaultCenter={{ lat: -34.397, lng: 150.644 }}
-  //   >
-  //     <Marker
-  //       position={{ lat: -34.397, lng: 150.644 }}
-  //     />
-  //   </GoogleMap>
-  // )};
-
-  // componentDidMount() {
-  //   // axios.post('https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/readUsers', {
-  //   //   email: "alex@email"
-  //   // })
-  //   //   .then((userData) => {
-  //   //     this.setState({
-  //   //       coordinateArray: userData.data.Item.coordinateArray.L,
-  //   //       email: "alex@email"
-  //   //     });
-  //   //     console.log(this.state.coordinateArray);
-  //   //   })
-  //   //   .catch((err) => console.log(err));
-  //   // console.log([0, 1]);
-  // }
-
   handleSubmit = async event => {
     event.preventDefault();
     const data = new FormData(event.target);
@@ -140,12 +97,6 @@ class Register extends React.Component {
       },
       () => {
         try {
-          console.log(
-            this.state.email,
-            ' this is email in handlesubmit',
-            'this is email1',
-            email1,
-          );
           Auth.signUp({
             username: this.state.email,
             password: this.state.password,
@@ -158,11 +109,9 @@ class Register extends React.Component {
               this.setState({
                 newUser,
               });
-              // })
             })
-            .catch(err => alert(err.message));
         } catch (e) {
-          alert(e.message);
+          console.log(e.message);
         }
       },
     );
@@ -189,9 +138,6 @@ class Register extends React.Component {
                     {
                       confirmed: true,
                     },
-                    // ,()=>{
-                    //   history.push('/trips');
-                    // }
                   );
                 });
             })

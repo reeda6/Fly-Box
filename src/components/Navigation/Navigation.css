@@ -1,48 +1,9 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
 
 .root {
   float: right;
   margin: 6px 0 0;
 }
 
-/*
-.link {
-  display: inline-block;
-  padding: 3px 8px;
-  text-decoration: none;
-  font-size: 1.125em; /* ~18px
-}
-
-
-.link,
-.link:active,
-.link:visited {
-  color: rgb(0, 102, 255);
-}
-
-.link:hover {
-  color: rgb(51, 204, 51);
-}
-
-.highlight {
-  margin-right: 8px;
-  margin-left: 8px;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.15);
-  color: #fff;
-}
-
-.highlight:hover {
-  background: rgba(0, 0, 0, 0.3);
-}
-*/
 .spacer {
   color: rgba(255, 255, 255, 0.3);
 }
@@ -71,53 +32,3 @@
   color:white;
 }
 
-/* 
-.btn-outline-success-me {
-  background-color: white !important;
-}
-
-.btnsample { 
-  color: #ffffff; 
-  background-color: #A8A39F; 
-  border-color: #F5F4F7; 
-} 
- 
-.btnsample:hover, 
-.btnsample:focus, 
-.btnsample:active, 
-.btnsample.active, 
-.open .dropdown-toggle.btnsample { 
-  color: #ffffff; 
-  background-color: #053610; 
-  border-color: #F5F4F7; 
-} 
- 
-.btnsample:active, 
-.btnsample.active, 
-.open .dropdown-toggle.btnsample { 
-  background-image: none; 
-} 
- 
-.btnsample.disabled, 
-.btnsample[disabled], 
-fieldset[disabled] .btnsample, 
-.btnsample.disabled:hover, 
-.btnsample[disabled]:hover, 
-fieldset[disabled] .btnsample:hover, 
-.btnsample.disabled:focus, 
-.btnsample[disabled]:focus, 
-fieldset[disabled] .btnsample:focus, 
-.btnsample.disabled:active, 
-.btnsample[disabled]:active, 
-fieldset[disabled] .btnsample:active, 
-.btnsample.disabled.active, 
-.btnsample[disabled].active, 
-fieldset[disabled] .btnsample.active { 
-  background-color: #A8A39F; 
-  border-color: #F5F4F7; 
-} 
- 
-.btnsample .badge { 
-  color: #A8A39F; 
-  background-color: #ffffff; 
-} */

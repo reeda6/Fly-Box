@@ -1,11 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -63,20 +55,14 @@ class Login extends React.Component {
     }
 
     if (this.refs.myRef) {
-      console.log('this is email1 ', email1, 'this is pword1 ', password1);
-
-      this.setState(
-        {
+      this.setState({
           email: email1,
           password: password1,
         },
         () => {
           Auth.signIn(this.state.email, this.state.password).then(user => {
             this.props.callSignInThunk(this.state.email, user.username, false); // note user pool stores sub as 'username'
-            // console.log('signed in ', user)
-            // .catch((err)=>alert(err))
           });
-          // .catch((err)=> alert(err))
         },
       );
     }
@@ -88,7 +74,6 @@ class Login extends React.Component {
         <div className={s.container}>
           <h1 className={s.title}>{this.props.title}</h1>
           <strong className={s.lineThrough}>WITH</strong>
-
           <div className={s.formGroup}>
             <a className={s.facebook} href="/login/facebook">
               <svg

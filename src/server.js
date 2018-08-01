@@ -1,11 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
 
 import path from 'path';
 import express from 'express';
@@ -23,11 +15,10 @@ import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
-import createFetch from './createFetch';
 import passport from './passport';
 import router from './router';
-import models from './data/models';
-import schema from './data/schema';
+// import models from './data/models';
+// import schema from './data/schema';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
@@ -113,7 +104,7 @@ app.get(
 app.use(
   '/graphql',
   expressGraphQL(req => ({
-    schema,
+    //schema,
     graphiql: __DEV__,
     rootValue: { request: req },
     pretty: __DEV__,
@@ -134,20 +125,12 @@ app.get('*', async (req, res, next) => {
       styles.forEach(style => css.add(style._getCss()));
     };
 
-    // Universal HTTP client
-    const fetch = createFetch(nodeFetch, {
-      baseUrl: config.api.serverUrl,
-      cookie: req.headers.cookie,
-      schema,
-      graphql,
-    });
-
     const initialState = {
       user: req.user || null,
     };
 
     const store = configureStore(initialState, {
-      fetch,
+  
       // I should not use `history` on server.. but how I do redirection? follow universal-router
     });
 
@@ -162,7 +145,6 @@ app.get('*', async (req, res, next) => {
     // https://facebook.github.io/react/docs/context.html
     const context = {
       insertCss,
-      fetch,
       // The twins below are wild, be careful!
       pathname: req.path,
       query: req.query,
@@ -236,13 +218,13 @@ app.use((err, req, res, next) => {
 //
 // Launch the server
 // -----------------------------------------------------------------------------
-const promise = models.sync().catch(err => console.error(err.stack));
+//const promise = models.sync().catch(err => console.error(err.stack));
 if (!module.hot) {
-  promise.then(() => {
+  //promise.then(() => {
     app.listen(config.port, () => {
       console.info(`The server is running at http://localhost:${config.port}/`);
     });
-  });
+  //});
 }
 
 //

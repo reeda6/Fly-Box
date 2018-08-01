@@ -1,23 +1,6 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
 
 @import '../variables.css';
 
-/*
- * normalize.css is imported in JS file.
- * If you import external CSS file from your internal CSS
- * then it will be inlined and processed with CSS modules.
- */
-
-/*
- * Base styles
- * ========================================================================== */
 .wrap {
   min-height: calc(100vh - 70px);
 }
@@ -38,14 +21,6 @@ a {
   color: #0074c2;
 }
 
-/*
- * Remove text-shadow in selection highlight:
- * https://twitter.com/miketaylr/status/12228805301
- *
- * These selection rule sets have to be separate.
- * Customize the background color to match your design.
- */
-
 ::-moz-selection {
   background: #b3d4fc;
   text-shadow: none;
@@ -56,10 +31,6 @@ a {
   text-shadow: none;
 }
 
-/*
- * A better looking default horizontal rule
- */
-
 hr {
   display: block;
   height: 1px;
@@ -68,12 +39,6 @@ hr {
   margin: 1em 0;
   padding: 0;
 }
-
-/*
- * Remove the gap between audio, canvas, iframes,
- * images, videos and the bottom of their containers:
- * https://github.com/h5bp/html5-boilerplate/issues/440
- */
 
 audio,
 canvas,
@@ -84,27 +49,15 @@ video {
   vertical-align: middle;
 }
 
-/*
- * Remove default fieldset styles.
- */
-
 fieldset {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-/*
- * Allow only vertical resizing of textareas.
- */
-
 textarea {
   resize: vertical;
 }
-
-/*
- * Browser upgrade prompt
- * ========================================================================== */
 
 :global(.browserupgrade) {
   margin: 0.2em 0;
@@ -112,12 +65,6 @@ textarea {
   color: #000;
   padding: 0.2em 0;
 }
-
-/*
- * Print styles
- * Inlined to avoid the additional HTTP request:
- * http://www.phpied.com/delay-loading-your-print-css/
- * ========================================================================== */
 
 @media print {
   *,
@@ -144,11 +91,6 @@ textarea {
     content: ' (' attr(title) ')';
   }
 
-  /*
-   * Don't show links that are fragment identifiers,
-   * or use the `javascript:` pseudo protocol
-   */
-
   a[href^='#']::after,
   a[href^='javascript:']::after {
     content: '';
@@ -159,11 +101,6 @@ textarea {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
-
-  /*
-   * Printing Tables:
-   * http://css-discuss.incutio.com/wiki/Printing_Tables
-   */
 
   thead {
     display: table-header-group;

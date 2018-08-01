@@ -1,27 +1,5 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
 
-/* eslint-disable global-require */
 import Amplify from 'aws-amplify';
-// import config from '../config';
-
-// apiGateway: {
-//   REGION: 'us-east-1',
-//   URL: 'https://hro28vpqla.execute-api.us-east-1.amazonaws.com/dev'
-// },
-// cognito: {
-//   REGION: 'us-east-1',
-//   USER_POOL_ID: 'us-east-1_IYlPcsKwL',
-//   APP_CLIENT_ID: '1a3r7tee8896qb3kiuvkagn1kk',
-//   IDENTITY_POOL_ID: 'us-east-1:ee7ea795-c051-4046-a393-0703ccbed52f'
-// }
-
 import { auth } from '../config.js';
 
 Amplify.configure({

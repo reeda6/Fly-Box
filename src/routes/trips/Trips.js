@@ -1,11 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -41,7 +33,7 @@ const mapStateToProps = state => ({
 const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap defaultZoom={3} defaultCenter={{ lat: 36.1627, lng: -86.7816 }}>
-      {// props.isMarkerShown &&
+      {
       props.coordinateArray.map(entry => (
         <Marker
           key={entry[0]}
@@ -90,7 +82,6 @@ class Trips extends React.Component {
           );
           console.log(tripsSortedByTime);
           const lastTrip = tripsSortedByTime[tripsSortedByTime.length - 1];
-
           this.setState({
             tripName: lastTrip.tripId,
             tripDescription: lastTrip.text,
@@ -100,95 +91,12 @@ class Trips extends React.Component {
         })
         .catch(err => console.log(err));
     }
-    // axios
-    //   .post(
-    //     'https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/readUsers',
-    //     {
-    //       email: this.props.username,
-    //     },
-    //   )
-    //   .then(userData => {
-    //     console.log(userData);
-    //     this.setState({
-    //       coordinateArray: userData.data.Item.coordinateArray.L,
-    //     });
-    //     console.log(this.state.coordinateArray);
-    //   })
-    //   .catch(err => console.log(err));
   }
 
   onImageDrop(file) {
     this.setState({
       pictureString: file[0],
     });
-
-    // s3Upload(file[0])
-    //   .then((attachment)=>{
-    //   Storage.vault.get(attachment)
-    //     .then((imageUrl)=>{
-    //       this.setState({
-    //         imageUrl
-    //       })
-    //       console.log(this.state.imageUrl)
-    //     })
-    //   })
-    //   .catch((err)=> console.log(err));
-
-    // await this.createNote({
-    //   attachment,
-    //   content: this.state.content
-    // });
-    // this.props.history.push("/");
-
-    // blobToBase64String(file[0])
-    //   .then(base64String => {
-    //     console.log('this is string ', base64String);
-    //     this.setState({
-    //       pictureString: base64String,
-    //     });
-    //     const data = JSON.stringify(this.state.pictureString);
-    //     let attachmentURL;
-    //   const note = await this.getNote();
-    //   const { content, attachment } = note;
-
-    //   if (attachment) {
-    //     attachmentURL = await Storage.vault.get(attachment);
-    //   }
-    //     // axios.post(
-    //     //     'https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/requestUploadURL',
-    //     //     data,
-    //     //     {
-    //     //       headers: {
-    //     //         'Content-Type': 'text/text',
-    //     //         imageName: this.state.tripName
-    //     //       },
-    //     //     },
-    //     //   )
-    //     //   .then(param => {
-    //     //     axios
-    //     //       .post(
-    //     //         'https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/getImages',
-    //     //         {
-    //     //           email: this.state.tripName,
-    //     //         },
-    //     //       )
-    //     //       .then(obj => {
-    //     //         this.setState({
-    //     //           retrievedString: Buffer.from(obj.data.objData.data).toString(
-    //     //             'utf-8',
-    //     //           ),
-    //     //         }, console.log(
-    //     //           'this is the url u want ',
-    //     //           this.state.retrievedString
-    //     //         ));
-
-    //     //       });
-    //     //   })
-    //     //   .catch(err => console.log(err));
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
   }
 
   handleAddTrip = async event => {
@@ -198,11 +106,6 @@ class Trips extends React.Component {
     s3Upload(this.state.pictureString)
       .then(attachment => {
         Storage.vault.get(attachment).then(imageUrl => {
-          // this.setState({
-          //   imageUrl
-          // })
-          // console.log(this.state.imageUrl)
-          // console.log('this is event', event);
           var pair = data.entries();
           let tripName,
             tripDescription = '';
@@ -249,22 +152,6 @@ class Trips extends React.Component {
                 })
                   .then(res => console.log(res))
                   .catch(err => console.log(err));
-                //   axios
-                //     .post(
-                //       ' https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/writeUsers',
-                //       {
-                //         text: this.state.tripName+'\n'+this.state.tripDescription,
-                //         url: this.state.tripName,
-                //         email: this.props.username,//NEEDS TO CHANGE
-                //         coordinateArray: this.state.coordinateArray
-                //       },
-                //     )
-                //     .then(res =>{
-                //       console.log('react is good to go', res);
-                //       this.setState(
-                //         {
-                //           markerShown: true
-                //         });
               } catch (e) {
                 alert(e.message);
               }
@@ -340,29 +227,7 @@ class Trips extends React.Component {
               <button className="btn btn-secondary-outlined">Add trip</button>
             </div>
           </form>
-
-          {/* <button
-            onClick={() => {
-              console.log('before users post ', this.state.tripName,' ', this.state.tripDescription,' ', this.props.username,' ', this.state.coordinateArray)
-              axios
-                .post(
-                  'https://azx5o5noa7.execute-api.us-east-1.amazonaws.com/dev/users',
-                  {
-                    text: this.state.tripName+'\n'+this.state.tripDescription,
-                    url: this.state.tripName,
-                    email: this.props.username,
-                    coordinateArray: this.state.coordinateArray
-                  },
-                )
-                .then(res => console.log('react is good to go', res))
-                .catch(err => console.log(err));
-            }}
-          >
-            click me to test user creation
-          </button> */}
-
           <hr />
-
           {this.state.tripName && (
             <>
               <h1 className={s.head}>My Recent Trip</h1>
@@ -374,7 +239,6 @@ class Trips extends React.Component {
                   {this.state.tripDescription}
                 </h3>
               )}
-
               <img
                 className={s.tripPic}
                 src={this.state.imageUrl}
@@ -439,9 +303,7 @@ class Trips extends React.Component {
               </div>
             </div>
           </div>
-
           <hr />
-
           <h1 className={s.head}>My Friends' Trips</h1>
           <div className="row">
             <div className="col-sm">
@@ -494,10 +356,5 @@ class Trips extends React.Component {
     );
   }
 }
-
-// <div className="row">
-//   <button className={s.button}>Large</button>
-//   <button className={s.button}>Large</button>
-// </div>
 
 export default connect(mapStateToProps)(withStyles(s, bootstrap)(Trips));
