@@ -1,27 +1,21 @@
-
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Row, Col } from 'react-bootstrap';
-//import { Slide } from 'react-slideshow-image';
-//import ImageGallery from 'react-image-gallery';
+// import { Slide } from 'react-slideshow-image';
+// import ImageGallery from 'react-image-gallery';
 import fish1 from '../../../public/fish4.jpg';
 import fish2 from '../../../public/fish2.jpg';
 import fish3 from '../../../public/fish3.jpg';
 import { Carousel } from 'react-responsive-carousel';
 
-
-
 import s from './Home.css';
 
-
-
-
-// const images = [ 
+// const images = [
 //   '../../../public/fish1.jpg',
 //   '../../../public/fish2.jpg',
 //   '../../../public/fish3.jpg',
 //   '../../../public/fish4.jpg',
-  
+
 // ];
 
 // const Slideshow = () => {
@@ -32,7 +26,7 @@ import s from './Home.css';
 //             '../../../public/fish2.jpg',
 //             '../../../public/fish3.jpg',
 //             '../../../public/fish4.jpg',
-            
+
 //           ]}
 //           duration={5000}
 //           transitionDuration={1000}
@@ -41,7 +35,6 @@ import s from './Home.css';
 // }
 
 class Home extends React.Component {
-
   // constructor(props) {
   //   super(props);
   //   this.state={images: [
@@ -60,29 +53,30 @@ class Home extends React.Component {
       },
       {
         original: 'http://lorempixel.com/1000/600/nature/2/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/2/'
+        thumbnail: 'http://lorempixel.com/250/150/nature/2/',
       },
       {
         original: 'http://lorempixel.com/1000/600/nature/3/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/3/'
-      }
-    ]
+        thumbnail: 'http://lorempixel.com/250/150/nature/3/',
+      },
+    ];
     return (
-
       <div className={s.root}>
         <div className={s.container}>
           <h1 className={s.head}>This could be you...</h1>
-          <img className={s.thisPic} src='http://www.flyfisherman.com/files/2017/06/FFMP-161200-STL-02.jpg'/>
+          <img
+            className={s.thisPic}
+            src="http://www.flyfisherman.com/files/2017/06/FFMP-161200-STL-02.jpg"
+          />
         </div>
       </div>
-
-     
     );
   }
 }
 
 export default withStyles(s)(Home);
-{/* <Carousel>
+{
+  /* <Carousel>
 <div>
     <img src={require('../../../public/fish4.jpg')} />
     <p className="legend">Legend 1</p>
@@ -94,8 +88,9 @@ export default withStyles(s)(Home);
 {/* <div>
     <img src="assets/3.jpeg" />
     <p className="legend">Legend 3</p>
-</div> */}
-//</Carousel>
+</div> */
+}
+// </Carousel>
 // <div className={s.root}>
 //   <Row>
 //     <Col xs={2} md={2} mdOffset={2} />
@@ -103,9 +98,6 @@ export default withStyles(s)(Home);
 //   </Row>
 //   <div className={s.container}>
 //     {/* <ImageGallery items={images} /> */}
-
-
-
 
 //     {/* <Carousel>
 //       <Carousel.Item >
@@ -131,7 +123,6 @@ export default withStyles(s)(Home);
 //       </Carousel.Item>
 //     </Carousel> */}
 
-
 //     {/* <div id="carouselExampleSlidesOnly" className="carousel slide" data-ride="carousel">
 //       <div className="carousel-inner">
 //         <div className="carousel-item active">
@@ -153,7 +144,6 @@ export default withStyles(s)(Home);
 //         <span className="sr-only">Next</span>
 //       </a>
 //     </div> */}
-
 
 //     {/* <div id="myCarousel" className="carousel slide" data-ride="carousel">
 //         <ol v="carousel-indicators">

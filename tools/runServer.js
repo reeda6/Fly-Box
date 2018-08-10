@@ -1,4 +1,3 @@
-
 import path from 'path';
 import cp from 'child_process';
 import webpackConfig from './webpack.config';

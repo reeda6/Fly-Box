@@ -1,4 +1,3 @@
-
 /**
  * Passport.js reference implementation.
  * The database schema used in this sample is available at

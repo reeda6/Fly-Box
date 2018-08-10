@@ -1,4 +1,3 @@
-
 import createBrowserHistory from 'history/createBrowserHistory';
 
 // Navigation manager, e.g. history.push('/home')

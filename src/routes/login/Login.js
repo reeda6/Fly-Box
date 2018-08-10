@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -55,7 +54,8 @@ class Login extends React.Component {
     }
 
     if (this.refs.myRef) {
-      this.setState({
+      this.setState(
+        {
           email: email1,
           password: password1,
         },

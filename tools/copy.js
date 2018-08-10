@@ -1,4 +1,3 @@
-
 import path from 'path';
 import chokidar from 'chokidar';
 import { writeFile, copyFile, makeDir, copyDir, cleanDir } from './lib/fs';

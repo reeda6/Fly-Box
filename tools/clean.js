@@ -1,4 +1,3 @@
-
 import { cleanDir } from './lib/fs';
 
 /**

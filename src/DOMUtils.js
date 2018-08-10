@@ -1,4 +1,3 @@
-
 export function updateTag(tagName, keyName, keyValue, attrName, attrValue) {
   const node = document.head.querySelector(
     `${tagName}[${keyName}="${keyValue}"]`,

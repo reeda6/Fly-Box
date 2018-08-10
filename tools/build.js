@@ -1,4 +1,3 @@
-
 import cp from 'child_process';
 import run from './run';
 import clean from './clean';

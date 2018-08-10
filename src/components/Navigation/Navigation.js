@@ -1,4 +1,3 @@
-
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -7,11 +6,9 @@ import { connect } from 'react-redux';
 import s from './Navigation.css';
 import Link from '../Link';
 
-const mapStateToProps = (state) => {
-  return {
-      username : state.runtime.username,
-  };
-}
+const mapStateToProps = state => ({
+  username: state.runtime.username,
+});
 class Navigation extends React.Component {
   constructor(props, context) {
     super(props, context);

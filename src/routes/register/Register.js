@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -103,13 +102,12 @@ class Register extends React.Component {
             attributes: {
               email: this.state.email,
             },
-          })
-            .then(newUser => {
-              console.log(newUser);
-              this.setState({
-                newUser,
-              });
-            })
+          }).then(newUser => {
+            console.log(newUser);
+            this.setState({
+              newUser,
+            });
+          });
         } catch (e) {
           console.log(e.message);
         }
@@ -134,11 +132,9 @@ class Register extends React.Component {
                   true,
                 )
                 .then(() => {
-                  this.setState(
-                    {
-                      confirmed: true,
-                    },
-                  );
+                  this.setState({
+                    confirmed: true,
+                  });
                 });
             })
             .catch(err => console.log(err.message));

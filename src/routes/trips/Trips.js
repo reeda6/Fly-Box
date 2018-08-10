@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -33,8 +32,7 @@ const mapStateToProps = state => ({
 const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap defaultZoom={3} defaultCenter={{ lat: 36.1627, lng: -86.7816 }}>
-      {
-      props.coordinateArray.map(entry => (
+      {props.coordinateArray.map(entry => (
         <Marker
           key={entry[0]}
           position={{

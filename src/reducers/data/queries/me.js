@@ -1,4 +1,3 @@
-
 import UserType from '../types/UserType';
 
 const me = {

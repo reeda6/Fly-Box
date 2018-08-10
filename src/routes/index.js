@@ -1,4 +1,3 @@
-
 import Amplify from 'aws-amplify';
 import { auth } from '../config.js';
 
