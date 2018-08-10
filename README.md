@@ -1,6 +1,6 @@
 ## Fly Box
 
-# Overview
+### Overview
 
 Welcome to Fly Box! We are a startup company helping you catch more fish with less work. Fly Box is a social media platform for fisherman that allows users to record their trips and share them with friends.
 
@@ -16,7 +16,7 @@ Good fishing,
 
 The Fly Box Team
 
-# Usage
+### Usage
 
 1.  To start, clone this repository onto your local machine
 2.  Run 'npm install' to install necessary packages
