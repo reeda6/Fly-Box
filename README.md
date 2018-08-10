@@ -1,6 +1,7 @@
 ## Fly Box
 
-#Overview
+# Overview
+
 Welcome to Fly Box! We are a startup company helping you catch more fish with less work. Fly Box is a social media platform for fisherman that allows users to record their trips and share them with friends.
 
 Users can mark their precise location using GPS coordinate tracking and later see exactly where they were on a Google Map. These position coordinates can be saved for later use or shared with others! Therefore, you and your friends can know exactly where you were when you caught that trophy fish. This will allow you and your friends to find the best spots without having to pay thousands of dollars for a fishing guide... you can become a local. In addition to marking your position, you can add a description and picture of your trip. This can include what the weather was, what flies you used, how high the water was, and of course, your great catch!
@@ -15,7 +16,7 @@ Good fishing,
 
 The Fly Box Team
 
-#Usage
+# Usage
 
 1.  To start, clone this repository onto your local machine
 2.  Run 'npm install' to install necessary packages
